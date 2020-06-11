@@ -42,6 +42,7 @@ app.use((error, req, res, next) => {
   })
 })
 
+// Mongoose, app and websocket connection
 mongoConn.connection()
 .then(result => {
   const server = app.listen(port, () => console.log(`server connected at port: ${port}`));

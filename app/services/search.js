@@ -3,7 +3,8 @@ const Answer =  require('../models/answer');
 const User = require('../models/user');
 
 /**
- * Performs partial text search on question model
+ * Performs partial text search on question model, 
+ * returns a maximum of two documents when @param perPage is not set
  * @param queryString
  * @param page - (optional) for pagination
  * @param perPage - (optional) for pagination
@@ -47,7 +48,8 @@ exports.searchQuestion = async ({ queryString, page, perPage }) => {
 }
 
 /**
- * Performs partial text search on answer model
+ * Performs partial text search on answer model, 
+ * returns a maximum of two documents when @param perPage is not set
  * @param queryString
  * @param page - (optional) for pagination
  * @param perPage - (optional) for pagination
@@ -83,7 +85,8 @@ exports.searchAnswer = async ({ queryString, page, perPage }) => {
 }
 
 /**
- * Performs partial text search on user model
+ * Performs partial text search on user model,
+ * returns a maximum of two documents when @param perPage is not set
  * @param queryString
  * @param page - (optional) for pagination
  * @param perPage - (optional) for pagination

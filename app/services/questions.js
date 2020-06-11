@@ -3,8 +3,8 @@ const User = require('../models/user');
 
 /**
  * Gets all questions, returns a maximum of two documents when @param perPage is not set
- * @param perPage
- * @param page 
+ * @param perPage - (optional) for pagination
+ * @param page - (optional) for pagination
  * @returns questions - Array and totalItems - Number
 */
 exports.getQuestions = async ({ page, perPage }) => {
@@ -15,7 +15,8 @@ exports.getQuestions = async ({ page, perPage }) => {
     const totalItems = await Question.find().countDocuments();
     const questions = await Question
       .find()
-      .populate('answers creator')
+      .populate({path: 'answers', select:'comment', populate: {path: 'user', select:  'firstname lastname username'}})
+      .populate('creator', 'firstname lastname username')
       .skip((currentPage - 1) * questionsPerPage)
       .limit(questionsPerPage);
 
@@ -113,7 +114,7 @@ exports.voteQuestion = async ({ vote, questionId }) => {
 }
 
 /**
- * updates the subscribed field of a question model
+ * Updates the subscribed field of a question model
  * @param isSubscribed
  * @param questionId 
  * @param userId

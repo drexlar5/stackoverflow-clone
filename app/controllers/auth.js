@@ -51,7 +51,6 @@ exports.login = async (req, res, next) => {
     });
   
   } catch (error) {
-    console.log('entered here', error)
     if (!error.statusCode) {
       error.statusCode = 500;
     }

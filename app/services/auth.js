@@ -84,7 +84,6 @@ exports.login = async ({ email, password }) => {
     };
     
   } catch (error) {
-    console.log('this error', error)
     throw error;
   }
 
