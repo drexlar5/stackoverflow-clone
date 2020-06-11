@@ -3,6 +3,7 @@ const AnswerService = require('../services/answers');
 exports.postAnswer = async (req, res, next) => {
   const { questionId, comment } = req.body;
   const userId = req.userId;
+
   try {
     const result = await AnswerService.postAnswer({ questionId, userId, comment })
 

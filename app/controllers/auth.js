@@ -46,12 +46,11 @@ exports.login = async (req, res, next) => {
     const user = await UserService.login(req.body)
   
     res.status(201).json({
-      message: 'User created',
+      message: 'User authenticated',
       data: user
     });
   
   } catch (error) {
-    console.log('entered here', error)
     if (!error.statusCode) {
       error.statusCode = 500;
     }

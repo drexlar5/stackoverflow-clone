@@ -16,6 +16,7 @@ const port = config.port || 8080;
 
 app.use(bodyParser.json());
 
+// CORS middleware
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
@@ -28,6 +29,7 @@ app.use('/answers', answerRoutes);
 app.use('/search', searchRoutes);
 app.use('/', questionRoutes);
 
+// Global error handler
 app.use((error, req, res, next) => {
   
   const status = error.statusCode || 500;
@@ -40,9 +42,12 @@ app.use((error, req, res, next) => {
   })
 })
 
+// Mongoose, app and websocket connection
 mongoConn.connection()
 .then(result => {
   const server = app.listen(port, () => console.log(`server connected at port: ${port}`));
+  
+  // socket IO connection
   const io = socket.init(server);
   io.on('connection', socket => {
     console.log('Client connected');

@@ -2,6 +2,13 @@ const Question = require('../models/question');
 const Answer = require('../models/answer');
 const socketIO = require('../../socket');
 
+/**
+ * Saves answer, fetches question and saves reference to answer in array
+ * @params questionId
+ * @params userId 
+ * @params comment
+ * @returns answer - Object
+*/
 exports.postAnswer = async ({ questionId, userId, comment}) => {
 
   try {
