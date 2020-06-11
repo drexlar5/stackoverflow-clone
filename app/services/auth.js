@@ -5,6 +5,15 @@ const jwtsecret = require('../config/config').secret;
 
 const User = require('../models/user');
 
+/**
+ * Registers a user
+ * @param email
+ * @param firstname 
+ * @param lastname
+ * @param username 
+ * @param password
+ * @returns userId - String
+*/
 exports.signup = async ({ email, firstname, lastname, username, password }) => {
  
   try {
@@ -31,6 +40,12 @@ exports.signup = async ({ email, firstname, lastname, username, password }) => {
   }
 }
 
+/**
+ * Authenticates a user
+ * @param email
+ * @param password
+ * @returns user token - Object
+*/
 exports.login = async ({ email, password }) => {
 
   try {

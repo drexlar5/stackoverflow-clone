@@ -1,7 +1,12 @@
 const Question = require('../models/question');
 const User = require('../models/user');
 
-
+/**
+ * Gets all questions, returns a maximum of two documents when @param perPage is not set
+ * @param perPage
+ * @param page 
+ * @returns questions - Array and totalItems - Number
+*/
 exports.getQuestions = async ({ page, perPage }) => {
   const currentPage = parseInt(page, 10) || 1;
   const questionsPerPage = parseInt(perPage, 10) || 2;
@@ -10,7 +15,7 @@ exports.getQuestions = async ({ page, perPage }) => {
     const totalItems = await Question.find().countDocuments();
     const questions = await Question
       .find()
-      .populate('answers')
+      .populate('answers creator')
       .skip((currentPage - 1) * questionsPerPage)
       .limit(questionsPerPage);
 
@@ -28,6 +33,13 @@ exports.getQuestions = async ({ page, perPage }) => {
   }
 }
 
+/**
+ * Creates a question and references the user
+ * @param title
+ * @param content 
+ * @param userId
+ * @returns question - Object and user - Object
+*/
 exports.createQuestion = async ({title, content, userId}) => {
   const question = new Question({
     title,
@@ -62,6 +74,12 @@ exports.createQuestion = async ({title, content, userId}) => {
 
 }
 
+/**
+ * Updates a vote field for a question model
+ * @param vote
+ * @param questionId
+ * @returns vote - Number
+*/
 exports.voteQuestion = async ({ vote, questionId }) => {
   let voteweight = 0;
 
@@ -94,6 +112,13 @@ exports.voteQuestion = async ({ vote, questionId }) => {
   }
 }
 
+/**
+ * updates the subscribed field of a question model
+ * @param isSubscribed
+ * @param questionId 
+ * @param userId
+ * @returns question - Object
+*/
 exports.subscribeToQuestion = async ({ isSubscribed, questionId, userId }) => {
 
   try {

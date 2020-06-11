@@ -26,7 +26,7 @@ exports.createQuestion = async (req, res, next) => {
   try {
 
     if(!errors.isEmpty){
-      const error = new Error('Valicatin failed, data entered is incorrect.');
+      const error = new Error('Validation failed, data entered is incorrect.');
       error.statusCode = 422;
       error.data = errors.array();
       throw error;

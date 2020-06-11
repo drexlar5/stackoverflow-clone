@@ -2,6 +2,13 @@ const Question = require('../models/question');
 const Answer =  require('../models/answer');
 const User = require('../models/user');
 
+/**
+ * Performs partial text search on question model
+ * @param queryString
+ * @param page - (optional) for pagination
+ * @param perPage - (optional) for pagination
+ * @returns questions - Array
+*/
 exports.searchQuestion = async ({ queryString, page, perPage }) => {
   const currentPage = parseInt(page, 10) || 1;
   const questionsPerPage = parseInt(perPage, 10) || 2;
@@ -39,6 +46,13 @@ exports.searchQuestion = async ({ queryString, page, perPage }) => {
    
 }
 
+/**
+ * Performs partial text search on answer model
+ * @param queryString
+ * @param page - (optional) for pagination
+ * @param perPage - (optional) for pagination
+ * @returns answers - Array
+*/
 exports.searchAnswer = async ({ queryString, page, perPage }) => {
   const currentPage = parseInt(page, 10) || 1;
   const answersPerPage = parseInt(perPage, 10) || 2;
@@ -68,6 +82,13 @@ exports.searchAnswer = async ({ queryString, page, perPage }) => {
    
 }
 
+/**
+ * Performs partial text search on user model
+ * @param queryString
+ * @param page - (optional) for pagination
+ * @param perPage - (optional) for pagination
+ * @returns users - Array
+*/
 exports.searchUser = async ({ queryString, page, perPage }) => {
   const currentPage = parseInt(page, 10) || 1;
   const usersPerPage = parseInt(perPage, 10) || 2;
