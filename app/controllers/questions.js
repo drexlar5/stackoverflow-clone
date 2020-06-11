@@ -68,3 +68,23 @@ exports.voteQuestion = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.subscribeToQuestion = async (req, res, next) => {
+
+  const { isSubscribed, questionId } = req.body;
+  const userId = req.userId;
+
+  try {
+    const result = await QuestionService.subscribeToQuestion({ isSubscribed, questionId, userId });
+
+    res.status(201).json({
+      message: 'User subcribed to question successfully.',
+      data: result
+    });
+  } catch (error) {
+    if (!error.statusCode) {
+      error.statusCode = 500;
+    }
+    next(error);
+  }
+};

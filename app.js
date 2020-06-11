@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const mongoConn = require('./app/database/mongoose');
+const socket = require('./socket');
 const questionRoutes = require('./app/routes/questions');
 const answerRoutes = require('./app/routes/answers');
 const searchRoutes = require('./app/routes/search');
@@ -42,6 +43,10 @@ app.use((error, req, res, next) => {
 mongoConn.connection()
 .then(result => {
   const server = app.listen(port, () => console.log(`server connected at port: ${port}`));
+  const io = socket.init(server);
+  io.on('connection', socket => {
+    console.log('Client connected');
+  })
 })
 .catch(err => console.log(err));
 

@@ -71,7 +71,6 @@ exports.voteQuestion = async ({ vote, questionId }) => {
     voteweight = -1;
   }
 
-  console.log(questionId, 'vote', vote)
   try {
     const result = await Question.findOne({_id: questionId});
   
@@ -83,7 +82,6 @@ exports.voteQuestion = async ({ vote, questionId }) => {
   
     result.save();
   
-    console.log(result)
     if (!result) {
       const error = new Error('Error occured, could not update vote.');
       throw error;
@@ -94,6 +92,32 @@ exports.voteQuestion = async ({ vote, questionId }) => {
   } catch (error) {
     return error;
   }
+}
 
+exports.subscribeToQuestion = async ({ isSubscribed, questionId, userId }) => {
 
+  try {
+    
+    const result = await Question.findOne({_id: questionId});
+    
+    if (userId.toString() !== result.creator.toString()){
+      const error = new Error('User is not authorized to subscribe for this question');
+      error.statusCode = 401;
+      throw error;
+    }
+    
+    result.isSubscribed = isSubscribed;
+  
+    result.save();
+  
+    if (!result) {
+      const error = new Error('Error occured, could not update vote.');
+      throw error;
+    }
+    
+    return result;
+
+  } catch (error) {
+    return error;
+  }
 }

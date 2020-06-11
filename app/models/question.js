@@ -28,6 +28,10 @@ const questionSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Answer'
   }],
+  isSubscribed: {
+    type: Boolean,
+    default: false
+  }
 }, {
   timestamps: true
 });
