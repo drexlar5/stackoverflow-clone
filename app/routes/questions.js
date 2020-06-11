@@ -15,5 +15,6 @@ router.post('/question', isAuth, [
 
 router.patch('/vote', isAuth, questionController.voteQuestion);
 
+router.patch('/subscribe', isAuth, questionController.subscribeToQuestion);
 
 module.exports = router;
