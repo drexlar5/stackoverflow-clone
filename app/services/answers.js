@@ -45,6 +45,6 @@ exports.postAnswer = async ({ questionId, userId, comment}) => {
     return answer;
 
   } catch (error) {
-    return error;
+    throw error;
   }
 }
