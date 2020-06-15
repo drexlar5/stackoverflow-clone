@@ -36,7 +36,7 @@ exports.signup = async ({ email, firstname, lastname, username, password }) => {
     return result._id;
 
   } catch (error) {
-    return error;
+    throw error;
   }
 }
 

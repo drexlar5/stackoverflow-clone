@@ -11,3 +11,18 @@ exports.connection = () => {
     }
   );
 }
+
+exports.testConnection = () => {
+  return mongoose.connect(config.mongoTestConnection, 
+    {
+      useNewUrlParser: true, 
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+      useFindAndModify: false
+    }
+  );
+}
+
+exports.disconnectTest = () => {
+  return mongoose.disconnect();
+}

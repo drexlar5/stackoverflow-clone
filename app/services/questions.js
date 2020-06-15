@@ -30,7 +30,7 @@ exports.getQuestions = async ({ page, perPage }) => {
       totalItems
     }
   } catch (error) {
-    return error;
+    throw error;
   }
 }
 
@@ -51,6 +51,12 @@ exports.createQuestion = async ({title, content, userId}) => {
   try {
     const result = await question.save();
     const user = await User.findById(userId);
+    
+    if (!user) {
+      const error = new Error('Error occured, could not find user.');
+      error.statusCode = 401;
+      throw error;
+    }
     const creator = user;
 
     user.questions.push(question);
@@ -62,7 +68,7 @@ exports.createQuestion = async ({title, content, userId}) => {
     }
 
     return {
-      result,
+      question: result,
       creator: {
         _id: creator._id,
         name: `${creator.firstname} ${creator.lastname}`
@@ -70,7 +76,7 @@ exports.createQuestion = async ({title, content, userId}) => {
     }
     
   } catch (error) {
-    return error;
+    throw error;
   }
 
 }
@@ -92,7 +98,12 @@ exports.voteQuestion = async ({ vote, questionId }) => {
 
   try {
     const result = await Question.findOne({_id: questionId});
-  
+    
+    if (!result) {
+      const error = new Error('Error occured, could not update vote.');
+      throw error;
+    }
+
     if (result.vote === 0 && voteweight === -1) {
       voteweight = 0;
     }
@@ -101,15 +112,10 @@ exports.voteQuestion = async ({ vote, questionId }) => {
   
     result.save();
   
-    if (!result) {
-      const error = new Error('Error occured, could not update vote.');
-      throw error;
-    }
-    
     return result.vote;
 
   } catch (error) {
-    return error;
+    throw error;
   }
 }
 
@@ -144,6 +150,6 @@ exports.subscribeToQuestion = async ({ isSubscribed, questionId, userId }) => {
     return result;
 
   } catch (error) {
-    return error;
+    throw error;
   }
 }
