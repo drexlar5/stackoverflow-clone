@@ -32,6 +32,8 @@ exports.searchQuestion = async ({ queryString, page, perPage }) => {
 
     const questions = await Question
       .find(query)
+      .populate({path: 'answers', select:'comment', populate: {path: 'user', select:  'firstname lastname username'}})
+      .populate('creator', 'firstname lastname username')
       .skip((currentPage - 1) * questionsPerPage)
       .limit(questionsPerPage);
 
@@ -124,6 +126,7 @@ exports.searchUser = async ({ queryString, page, perPage }) => {
 
     const users = await User
       .find(query)
+      .select('email firstname lastname username')
       .skip((currentPage - 1) * usersPerPage)
       .limit(usersPerPage);
   
