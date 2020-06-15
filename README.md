@@ -379,4 +379,4 @@ yarn run test
 - Only a user that asked a question can subscribe to be notified when the question is answered.
 - When a question is answered the question model is checked to see if the **isSubscribed** field is true.
 - If the subscribed field is true, The messaged is emitted using the questionId as its channel.
-- Only users listening on that channel will receive te notification that the question has been answered.
+- Only users listening on that channel will receive the notification that the question has been answered.
