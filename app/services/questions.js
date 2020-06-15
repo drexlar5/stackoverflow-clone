@@ -143,7 +143,7 @@ exports.subscribeToQuestion = async ({ isSubscribed, questionId, userId }) => {
     result.save();
   
     if (!result) {
-      const error = new Error('Error occured, could not update vote.');
+      const error = new Error('Error occured, could not subscribe user.');
       throw error;
     }
     

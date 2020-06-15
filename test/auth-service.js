@@ -1,6 +1,5 @@
 const expect = require('chai').expect;
 const sinon = require('sinon');
-const bcrypt = require('bcryptjs');
 
 const db = require('../app/database/mongoose');
 const User = require('../app/models/user');

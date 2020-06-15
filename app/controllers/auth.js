@@ -7,7 +7,7 @@ exports.signup = async (req, res, next) => {
   try {
 
     if (!errors.isEmpty()) {
-      const error = new Error('Validation failed');
+      const error = new Error('Validation failed.');
       error.statusCode = 422;
       error.data = errors.array();
       throw error;
@@ -16,7 +16,7 @@ exports.signup = async (req, res, next) => {
     const user = await UserService.signup(req.body)
   
     res.status(201).json({
-      message: 'User created',
+      message: 'User created.',
       data: user
     });
     
@@ -45,7 +45,7 @@ exports.login = async (req, res, next) => {
 
     const user = await UserService.login(req.body)
   
-    res.status(201).json({
+    res.status(200).json({
       message: 'User authenticated',
       data: user
     });

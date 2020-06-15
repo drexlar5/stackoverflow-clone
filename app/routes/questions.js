@@ -6,7 +6,7 @@ const isAuth = require('../middleware/is-auth');
 
 const router = express.Router();
 
-router.get('/questions', isAuth, questionController.getQuestions);
+router.get('/questions', questionController.getQuestions);
 
 router.post('/question', isAuth, [
   body('title').trim().isLength({min: 5}),
